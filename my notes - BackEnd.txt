@@ -1,0 +1,450 @@
+https://ide-run.goorm.io/workspace/webDev?language=us
+סביבת עבודה אונליין
+
+https://github.com/nax3t/webdevbootcamp
+פרוייקטים מהקורס
+======================================================
+
+COMMAND LINE:
+cd להיכנס לתקיה
+ls להציג תוכן תיקיה
+cd .. לחזור תקיה אחת למעלה
+cd x+tab נותן תוכן שמתחיל באיקס למשל
+touch יצירת קובץ
+mkdir יצירת תקיה
+rm מחיקת קובץ
+rm -rf מחיקת תקיה עם כל תתי התקיות והקבצים שבתוכה
+
+======================================================
+NODE
+node file.js מריץ קובץ
+
+NPM
+npm install PACKAGE_NAME
+require()
+
+npm init
+package.jsonכדי להתקין את ה
+
+ npm install express 
+npm install express --save
+:
+package.json
+זה קובץ עם כל מיני פרטים על הפרויקט
+מה שחשוב זה ה-דיפנדסיז. זה מראה איזה 
+חבילות צריך להתקין. למקרה שהעלנו את הפרויקט בלי כל החבילות
+כמו למשל בהעלאת פרויקט ל-גיט
+לכן משתמשים בסיומת
+--SAVE
+כדי שישמור את שם החבילה שנדרשת בקובץ הנל
+
+npm i -g nodemon
+מתקין אופציה של טעינה אוטומטית אחרי שמירת שינויים 
+במקום לעשות כל פעם node app.js
+עושים nodemon app.js
+
+app.get('*')
+עבור ברירת מחדל
+צריך להיות בסוף רשימת ה-ראוט כי אחרת זה תמיד יוביל לשם
+
+העברת פרמטרים:
+app.get(xx/:id
+id הוא פרמטר
+
+גישה לפרמטר:
+req.params.id
+
+res.send
+שליחת מחרוזת
+
+res.render('index.html
+מחזיר עמוד HTML
+העמוד אמור להיות בתוך תקיית VIEWS.
+אין צורך לציין את שם התקיה. זה אוטומטי
+
+===========
+DEBBUGING
+node app.js --inspect
+nodemon app.js --inspect
+
+אחר כך לפתוח את גוגל יש בצד כפתור ירוק שפותח דיבאג
+
+======================================================
+	TEMPLATE
+======================================================
+const express = require('express');
+const app = express();
+
+app.get('/', function(req, res){
+	res.send('welcome to the home page')
+});
+app.get('*', function(req, res){
+	res.send('default rout / cant find')
+});
+app.listen(3000,  () => {
+  console.log('running on port 3000');
+});
+
+כדי להריץ בgoormide:
+project -> running url and port
+ואז לבחור או להוסיף אופציה וזה ירוץ בקישור שמוצג
+
+======================================================
+EJS
+עבור הצגת HTML דינאמי
+להתקין ejs
+==========
+העברת פרמטרים לHTML שמחזירים:
+res.render('index.html, {id:'123
+
+ואז בHTML:
+
+<% id =%>
+
+אופציות
+<% =%> כשרוצים להוסיף משהו לדף הHTML כמו הצגת המשתנה
+<% %> כדי להריץ קוד כמו תנאי או לולאה
+דוגמה:
+<%if (recipes.length > 0) { %>
+// Do something with more than 1 recipe
+<% } %>
+==========
+כשכוללים קבצי CSS או JS הם יהיו בתקיה PUBLIC
+ולגן צריך להוסיף בקובץ הראשי:
+app.use(express.static("public
+כדי שהקבצים ייכללו בפרויקט
+ןגם באלמנט LNK שמקשר לCSS לכתוב:
+href="/fileame" f עם ה-/
+==========
+כדי לקצר ולא לכתבו כל פעם סיומת EJS
+אפשר להוסיף את השורה:
+app.set(jview engine","ejs");   l
+========================================
+PARTIALES \ TEMPLATE
+שימוש חוזר בקוד
+לדוג:
+view/partials/header.ejs
+view/partials/footer.ejs
+
+כדי להתמש בהם בכל עמוד:
+<% include partials.header %>
+גרסה חדשה:
+<%- include("partials/header") %>
+<%- include("partials/footer") %>
+================================================
+			POST	
+יש להתקין חבילת body-parser כדי שנוכל לגשת לפרנטרים של הבקשה:
+var bodtparser = require("body-parser"); l
+app.use(bodyparser.urlencoded({extended:true}));  l
+
+דוגמה לFORM ששולח בקשת פוסט:
+<form action="/theURL" method="POST"> 
+<input type="text" name="nameForRout">
+<button></buton>
+</form>
+
+ואז:
+app.post("/theURL", funcrion(req, res){  l
+console(req.body.nameForRout" ) ; l
+res.redirect("newURL"); l //מעבר לעמוד אחר אחר קבלת המידע
+});
+
+use the name="blog[title]" syntax 
+instead of name="blog['title']" 
+or name="blog.title" 
+^
+TL;DR: this syntax is specific to body-parser.
+
+
+======================================================================
+		 API
+application programing interface
+======================================================================
+אתר דוגמאות? IFTTT
+programableweb
+
+אתר של מידע אקראי (פרטי משתמשים ועוד)
+https://jsonplaceholder.typicode.com/
+
+לרוב התגובה לבקשה תהיה בפורמט JSON או XML
+
+יש תוסף לכרום בשם JSONView שמציג בצורה ברורה
+
+שליחת בקשה בעזרת ספריית axios
+https://www.youtube.com/watch?v=UKoicp3Mxzk
+
+דוג:
+var axios = require('axios').default;
+
+// Make a request for a user with a given ID
+axios.get('https://www.w3schools.com/code/tryit.asp?filename=FBWPQRGSY0ZR')
+  .then(function (response) {
+    // handle success
+        console.log(response.data);
+		console.log(response.status);
+		console.log(response.statusText);
+		console.log(response.headers);
+		console.log(response.config);
+  });
+
+
+api לפרטים של סרטים:
+http://www.omdbapi.com/
+לדוג
+http://www.omdbapi.com/?apikey=thewdb&i=tt0796366&tomatos=true
+==========================
+DEBBUGING
+
+https://www.npmjs.com/package/pryjs
+
+===============
+convension /REST
+
+get + post עם אותו שם
+===========
+html form לא תומך בבקשת אחרות חוץ מ-גט ו-פוסט
+לכן כדי שיהיה אפשר לעשות בקשות
+put, delete exc...
+בעדכון צריך להתשמש ב
+npm install method override
+mO = require("method-override');
+app.use(mO("_method"))
+ 
+PUT REQUEST
+(app.put(req,res...)
+	user.findByIdAndUpdate(id, updatedObj, callback)...
+
+ואז בתצוגה:
+<form action="/../../id?_method=PUT" method="POST">
+
+(אפשר במקום גל ה לעשות פוסט ולא פוט וזה יעבוד אבל זה פחות תואם לתבנית של הרסטופולל)
+
+=======================
+	Associations
+	קשרים בין ישויות
+
+1. Embedding data
+למשתמש יש הרבה פוסטים. לפוסט יש משתמש אחד:
+var postScehema = {...}
+var userSchema = {... posts: [postScehema]}
+הסדר חשוב כדי שיזהה את ה-פוסט-סכימה בתוך ה-יוזר
+
+הוספת פוסט למשתמש:
+user.posts.push({...});
+user.save...
+====
+2. Object References
+שומרים את ה-איידי ולא את כל האובייקט
+var postScehema = {...}
+var userSchema = {... 
+	posts: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref:"Post"
+		}
+	]}
+קישור פוסט חדש אל המשתמש:
+Post.create({...}, funcrion(err,post){
+	User.findOne({email:"..."},funcrion(err,user){
+		user.posts.push(post)
+		user.save(...)
+		})
+	})
+==
+למצוא משתמש ואת כל הפוסטים שלו:
+User.findOne({email:"..."}).populate("posts").exec(funcrion(err.user){
+	console.log(user)
+})
+^
+מדפיס את המשתמש אבל במקום שבפוסטים יהיה רק מספר
+ זיהוי, יהיה שם עכשיו את כל האובייקט ההל האובייקט המלא
+
+=========================================================
+	Module.exports
+חלוקה של הקוד לקבצים
+כדי שיהיה קריא יותר
+שיהיה ניתן לשימוש חוזר
+
+תקיה models
+
+user.js:
+var mongoose = require("mongoose")
+var userSchema = {...}
+module.exports = mongoose.model("User",userSchema);
+השורה האחרונה זה מה שיישלח למי ש"מבקש" את הקובץ הזה
+
+app.js:
+var User = require("./models/posts");
+
+==================================
+חלוקה של הראוטרים לקבצים:
+app.js:
+var commentRouts = require("./routs/comments"),
+    campgroundRouts = require("./routs/campgrounds"),
+    authRouts = require("./routs/index");
+
+app.use(authRouts);
+app.use(campgroundRouts);
+app.use(commentRouts);
+^
+(ניתן להוסיף מחרוזת שבה כל ראוטר ממתחיל ואז בקובץ של הראוטר לא צריך לכתוב אותה כמה פעמים:
+app.use("/campgrounds",campgroundRouts);
+ואז בראוטר במקום:
+router.get("/campgrounds/new"
+יהיה
+router.get("/new"
+===
+בכל אחד מהקבצים הנל:
+var express = require("express"),
+    router = express.Router(),
+וגם לעשות require
+לכל אחד מהקבצים שמשתמשים בהם כמו מודלים של משתמש וכו
+
+באמצע יהיה במקום
+app.get 
+יהיה
+router.get("/...
+
+בסןף הקובץ:
+  module.exports = router;
+  ===========
+ פונקציות moddleware
+ מןמלץ להעביר לקובץ נפרד
+ 
+=============
+	connect-flash
+חבילה שעוזרת להציג הודעות פלאש למשתמש
+זה הודעות שמוצגות פעם אחת ואחרי ריענון נעלמות כמו התחברת בהצלחה
+
+npm i -s connect-flash
+flash = require("connect-flash"),
+app.use(flash());
+שימוש:
+(אפשר לעשות כמה סוגי הודעות שרוצים)
+app.use(function(req, res, next){
+  res.locals.error = req.flash("error");//it will pass error message to every template 
+  res.locals.success = req.flash("success");//it will success pass message to every template 
+  next();
+});
+req.flash("error", "please log in first");
+השורה הזאת עדיין לא מריצה כלום אלא שומרת את ההודעה כי להריץ בהמשך של ה-נקסט
+
+כדי להציג את ההודעה בכל עמוד שנרצה, מוסיפים אותה בעמוד של ה-הדר 
+header.ejs:
+	<div class="container">
+        <% if(error && error.length > 0) { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error %>
+          </div>
+        <% } %>
+        <% if(success && success.length > 0) { %>
+          <div class="alert alert-success" role="alert">
+            <%= success %>
+          </div>
+        <% } %>
+
+      </div>
+^
+נוח להציג אותן בתוך 
+bootstrap alerts
+=======================================================================
+העלאת תמונות דרך 
+CLOUDINARY
+אחרי פתיחת חשבון מקבלים קודים
+cloud_name: "efivanso",
+  api_key: 322655568553446, //process.env.CLOUDINARY_API_KEY,
+  api_secret: "RyZ1zi3qLmTm8CyKjY46ry5G_GQ", // process.env.CLOUDINARY_API_SECRET
+
+HTML
+      <form action="..." method="POST" enctype="multipart/form-data">
+		 <div class="form-group">
+			  <label for="image">Image</label>
+			  <input type="file" id="image" name="image" accept="image/*" >
+		 </div>
+	  ...
+	  </form>
+  
+  ===
+  עשיתי בקובץ נפרד את ההגדרות בשביל שימוש חוזר:
+  // upload images code:=================================
+var multer = require("multer");
+
+//creating custom name for the uploaded file:
+var storage = multer.diskStorage({
+  filename: function (req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  },
+});
+//check the extension of the file
+var imageFilter = function (req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error("Only image files are allowed!"), false);
+  }
+  cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter });
+
+//cloudinary configuration (need to use ENV variables to keep them secure)
+var cloudinary = require("cloudinary");
+cloudinary.config({
+  //personal config details from my account in cloudinary
+  cloud_name: "efivanso",
+  api_key: 322655568553446, //process.env.CLOUDINARY_API_KEY,
+  api_secret: "RyZ1zi3qLmTm8CyKjY46ry5G_GQ", // process.env.CLOUDINARY_API_SECRET
+});
+
+exports.upload = upload;
+exports.cloudinary = cloudinary;
+
+//how to use: בדף שמעלים את הפונקציה להוסיף ככה
+    // var imgUpload = require("./../uploadImagesConfig"),
+    //     upload = imgUpload.upload;
+    //     cloudinary = imgUpload.cloudinary;
+=====
+  העלאת התמונה
+לא לשכוח להוסיף בשורה של הפוסט 
+
+router.post("/register", upload.single("image"), function (req, res) {
+
+  if (req.file) {//if there is an image
+    //upload the img to my account at cloudinary and return img url + img id
+    cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+      req.body.imageProfile = result.secure_url;
+      req.body.imageId = result.public_id;
+      continueDoSometing(req, res);//continue saving user
+    });
+  } else {
+    continueDoSometing(req, res);//continue saving user
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

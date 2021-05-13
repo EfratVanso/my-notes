@@ -1,0 +1,51 @@
+Babel
+https://www.sitepoint.com/parcel-hyperapp-github-pages/
+
+npm install --save babel-plugin-transform-react-jsx babel-preset-env
+npm install --save parcel-bundler
+
+To start the server running, enter the following command:
+
+./node_modules/.bin/parcel index.html --out-dir docs
+./node_modules/.bin/parcel build index.html --out-dir docs --public-url ./
+
+open docs/index.html and it is running!
+
+Add the following to the “scripts” section of the package.json file:
+
+"start": "parcel index.html --out-dir docs",
+"build": "parcel build index.html --out-dir docs --public-url ./"
+
+----
+after Changes:
+npm start
+npm run build
+
+----
+GitHub pages:
+
+.gitignore:
+			# Logs
+			logs
+			*.log
+			npm-debug.log*
+
+			# Runtime data
+			pids
+			*.pid
+			*.seed
+
+			# Dependency directory
+			node_modules
+
+			# Optional npm cache directory
+			.npm
+
+			# Optional REPL history
+			.node_repl_history
+
+			# Cache for Parcel
+			.cache
+
+			# Apple stuff
+.DS_Store

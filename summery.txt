@@ -1,0 +1,100 @@
+google fonts
+להעתיק קישור. בסופו יש את שם הפונט ואז ניתן להשתמש בו
+=====================================
+bootstrap
+האופציות:
+להוסיף את הלינקים מהאתר לדף הHTML :<head>
+	<title>Bootstrap Basics</title>
+<!-- 	<link rel="stylesheet" type="text/css" href="Bootstrap.css"> -->
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+</head>
+<body>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</BODY>
+
+או להוריד את הקובץ מהאתר ואז להוסיף לינק למיקום הקובץ:
+<link rel="stylesheet" type="text/css" href="Bootstrap.css">
+(פה זה פשוט באותה תקיה
+בשביל אופציות מסוימות כמו NAVBA, להוסיף גם את קובץ הJS
+
+קישור לקובץ CSS אישי יבוא אחרי הBOOTSTRAP כדי שיוכל לדרוס אותו
+
+שימוש:
+	<button class="btn btn-success btn-xs">click me</button>
+ניתן לדרוס את הסטייל:
+btn-success{color:red}
+====
+container עדיף לשים הכל בפנים
+form-group
+form-control
+THUMBNAIL לעטוף תמונה שתתאים לגודל. של COL למשל
+כל טבלה מחולקת ל12 עמודות (או container)
+row
+col יש אופציות לאתר רספונסיטיבי כמו col-lg-4
+
+אייקונים של בטוסטראפ   :glyphicon       
+<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+
+ספריית פונטים ואייקונים
+https://fontawesome.com/
+<script src="https://kit.fontawesome.com/c00ad845f8.js" crossorigin="anonymous"></script>
+===========================================================
+BOOTSTRAP 4
+
+colors שמות חדשים של צבעים
+יש classs לmargin, padding שנקרא spacing
+זה עובד בקיצור למשל p-0 
+pt-0 
+m-b-5
+======================
+במקום px  יש rem
+========================
+responsitive breakpoints
+יש גדלים אפשריים שלפי זה מסדרים את המסך החל מxs עד xl
+אפשר להוסיף לspacing  ^ 
+לדוג: p-xl-5 ואז יהיה רווח רק במסכים גדולים
+====
+שינויים בNAVNAR צריך להגדיר באיזה גודל תהיה תצוגה מוקטנת, ומה צבע  הרקע
+=================
+display utility 
+להציג או להסתיר אלמנטים (או עוד אופציות של DISPLAY ) בהתאם לגודל
+כמו d-m-none החל מגודל מדיום האלמנט יוסתר
+====
+flexbox
+d-flex justify-content-center יש כמה אופציות לסידור האלמנטים בתוך האבא. לימין או שמאל מרכז ועוד
+לאורך: align-items-start ועוד
+ואפשר גם לפי גודל המסך
+
+align-self מיקום של פריט אחד במקום ספציפי. דורס את ההגדרות הקודמות אם יש ^
+
+
+direction :
+flex-row-reverse משנה את ההתחלה מימין לשמאל
+
+card במקום thumbnail  ועוד
+
+
+============
+שיטה למרכז באמצע הדף את כל האלמנטים:
+    <div style="width: 30%; margin: 0px auto;">
+====
+
+עוד פרימורק לעיצוב כמו בוטסטראפ:
+semantic ui
+אפשר לקחת לינק רק לחלק מהקומפוננטים. או את הכל:
+https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css
+??
+
+
+
+===============אתר להורדת תמונות בחינם
+
+
+
+
+

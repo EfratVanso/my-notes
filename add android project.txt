@@ -1,0 +1,23 @@
+ng build
+ionic capacitor add android
+
+after changes:
+ng build
+ionic capacitor copy android
+
+ionic capacitor run android 
+זה קיצור של 2 הפקודות הקודמות וגם פותח באנדרואיד סטודיו
+
+ריצה עם שמירת שינויים אוטומטית בלי צורך לעשות שוב build:
+ionic capacitor run android -l
+
+אבל רק ככה זה עובד לי:
+ionic capacitor run android -l --address=192.168.43.195
+
+כדי להשיג IP :  
+ipconfig
+נמצא בIPv4 Address.
+
+כדי לעשות דיבאג בריצה על המכשיר עצמו
+chrome://inspect/
+ןאז ללחוץ inspect

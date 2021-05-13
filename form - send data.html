@@ -1,0 +1,66 @@
+<html>
+
+<script>
+
+    function hansleSubmit(e) {
+        var Form = document.getElementById("f");
+            for(I = 0; I < Form.length; I++) {
+                var Name = Form[I].getAttribute('id');
+                var Value = Form[I].value;
+                console.log(Name + ' : ' + Value);
+            }
+            console.log(Form.join())
+        // for(var i = 0; i<f.length; i++){
+        //     console.log(f[i].value)
+        // };
+        // alert()
+    };
+
+</script>
+
+<body onload="">
+    <div id="root" class="flex-container">
+        <h1>title </h1>
+    </div>
+
+    <form id="f" onsubmit="hansleSubmit();return false">
+
+        <label for="name">name</label>
+        <input type="text" id="name">
+
+        <label for="family">family</label>
+        <input type="text" id="family">
+
+        <button type="submit">ok</button>
+    </form>
+
+
+</body>
+
+<style>
+    * {
+        font-family: Arial, Helvetica, sans-serif
+    }
+
+    #root {
+        display: flex;
+        justify-content: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    input,
+    label {
+        width: 200px;
+        margin: 5px;
+    }
+</style>
+
+</html>

@@ -1,0 +1,211 @@
+הורדה מפה
+https://www.mongodb.com/try/download/community
+לבחור באופציה community server 
+
+הוראות התקנה
+https://www.youtube.com/watch?time_continue=102&v=MCpbfYvvoPY&feature=emb_title
+
+הרצה:
+mongod 
+מפעיל תהליך שרץ ברקע ואז:
+
+mongo
+פותח מקום להריץ פקודות
+
+בהרצת הפרויקט:
+cd 'C:\Program Files\MongoDB\Server\4.2\bin\'
+.\mongod.exe 
+
+help
+מראה אופציות של הפקודות
+
+use dbName
+אם המסד נתונים קיים אז הוא ישתמש בו, אחרת ייצור אותו
+
+show collections
+
+db.dbName.insert({...})
+הכנסת נתונים 
+
+db.dbName.update({נתוני חיפוש},{מה לשנות})
+עידכון נתונים ( מוחק את כל התוכן הקודם)
+
+db.dbName.update($set: {נתוני חיפוש},{מה לשנות})
+עידכון נתונים ( מעדכן רק מה שצויין 
+
+db.dbName.remove({...})
+מחיקה
+
+
+db.dbName.find()
+מראה את כל הנתונים של בסיס הנתונים הזה
+
+===================================================
+		MONGOOSE
+		
+npm i -s mongoose
+חבילה שעוזרת לעבוד עם מונגו ו-נוד
+
+Var mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost/adbName");
+
+var catSchema = new mongoose.Schema({
+	name: String,
+	age: Number
+	...
+});
+var cat = mongoose.model("Cat", catSchema);
+ואז ניתן להתשמש בזה כדי לגשת לנתונים כמו:
+Car.remove(obj);
+
+הוספה לדטבייס:
+var x = new Cat({...});
+x.save();
+
+אפשר להוסיף פונקציה:
+x.save(function(err,cat){
+	if(err){...}
+	else {pint cat...}
+});
+פונקציה נקראת אחרי שהפעולה הסתיימה (לפעמים לוקח קצת זמן
+===
+הצגת הרשומות:
+Cat.find({}, function(err,cat){
+	if(err){...}
+	else {pint cat...}
+});
+=====
+אופציה יותר טובה שגם יוצרת אובייקט חדש וגם נשמר:
+Cat.create({...
+},function(err,x){
+...
+});
+========================================
+	RESTFUL ROUTES
+========================================
+תבנית
+דרך קבועה לסדר את הראוטים
+לדוג
+הצגת הכל\ לפי מספר זיהוי
+מחיקה. עדכון. הוספה
+מפורט פה 
+https://medium.com/@shubhangirajagrawal/the-7-restful-routes-a8e84201f206
+
+================
+nested routs
+אחד בתוך השני. אם למשל למוצר יש תגובות משלו
+GET:
+product/:id/comments/new
+Post new comment(from the form):
+product/:id/comments
+
+===============================================================
+	AUTONTICATION
+passport js חבילה עם הרבה דרכים להתחבר כמו גוגל פייסבוק
+passport local
+passport local mongoose מיועד במיוחד למונגוס להתחברות מהירה
+
+install:
+npm i -s passport passport-local passport-local-mongoose express-session
+
+====user.js:
+var mongoose = require("mongoose");
+var passportLocalMongoose = require("passport-local-mongoose")
+
+var userSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
+
+userSchema.plugin(passportLocalMongoose);//this adding some methods to the User
+module.exports = mongoose.model("User", userSchema);
+==
+app.js:
+passport     = require("passport"),
+LocalStrategy =require("passport-local"),
+User         =require("./models/user"),
+...
+//PASSPORT CONFIGURATION כל מיני הגדרות שצריך לכתוב
+app.use(require("express-session")({
+  secret: "It can be anything. it helps to encode the password",
+  resave:false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//send the current user information to every rout
+app.use(function(req, res, next){
+  res.locals.currentUser = req.user;//it will be empty if no one has signed in
+  next();
+});
+
+
+//==================================
+//  AUTH ROUTES
+//==================================
+
+//show register form
+app.get("/register", function (req, res) {
+  res.render("register");
+});
+//handle sign up logic
+app.post("/register", function (req, res) {
+  var newUser = new User({ username: req.body.username });
+  User.register(newUser, req.body.password, function (err, user) {
+    if (err) {
+      console.log(err);
+      return res.render("register");
+    }
+    passport.authenticate("local")(req, res, function () {
+      res.redirect("/campgrounds");
+    });
+  });
+});
+
+//show login form
+app.get("/login", function (req, res) {
+  res.render("login");
+});
+//handle login logic
+app.post("/login",
+  passport.authenticate("local", 
+  {// middleware that check automatically if the user and password are correct
+    successRedirect: "/campgrounds",
+    failureRedirect: "/login",
+  }),
+  function (req, res) {}
+);
+//handle logout
+app.get("/logout",function(req,res){
+  req.logout();
+  res.redirect("/campgrounds");
+});
+
+//middleware
+function isLoggedIn(req,res,next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/login");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

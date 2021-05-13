@@ -1,0 +1,365 @@
+בתוך תקיה ריקה עם שם ללא אותיות גדולות ורווחים, לכתוב בטרמינל:
+npx create-react-app .
+
+==
+יצירת פרויקט חדש באמצעות
+expo-cli
+מגדיר דברים נוספים שבדרך כלל צריך בשביל הפרויקט( עם היצירה של ריאקט יהיה צורך להוסיף דברים לבד)
+npx expo-cli init PROJECT-NAME
+blank
+code .     תוך תקיית הפרויקט זה פותח אותו בויזואל סטודיו קוד
+בתוך קובץ ה-הטמל יהיה 
+root div 
+שהכל יהיה בתוכו
+
+הרצה:
+npm start
+
+rfc
+=========
+navigation ניווט
+יש 3 אופציות בריאקט:
+1.stack navigator קישורים
+2.buttonTabNavigator סרגל שמוצג בתחתית המסך
+3. drawer  navigator תפריט שיוצא מהצד
+התקנה
+1
+npm install react-navigation
+
+2. Install Dependencies:
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+3. Install React Navigation Stack:
+npm install react-navigation-stack @react-native-community/masked-view
+
+4. Start the app and clear cache with:
+ expo r -c
+ 
+app.js:
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+====
+props 
+העברת נתונים מהורה לילד
+===
+העברת נתונים מילד להורה
+מגדרים פונקציה ומעבירים בתור פרופס לילד
+הילד קורא לפונקציה עם חץ ומעביר פרמטר
+====
+ברשימות או מערכים שמוצגים בריאקט חייב להיות לכל אחד מפתח ייחודי כדי לשפר יעילות בעת שינוי ברשימה
+key="..."
+===
+FORM
+יש 3 שלבים עבוור כל קלט:
+html
+state to every one
+handle function to every one
+https://reactjs.org/docs/forms.html
+
+===SUBMIT FORM אותו קישור^
+2 שלבים:
+add submit handler function
+on form tag add on submmit
+
+    event.preventDefault();
+מונע מכל השדות להימחק אחרי לחיצה על סבמיט
+=======
+React LIFE CICLE
+https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+הפונקציות נקראות לפי הסדר ברשימה. אם יש ילד לקומפוננט הזה אז הפונקציה האחרונה תרוץ רק אחרי שכל הפונקציות של הילד נקראו
+A אבא
+B ילד
+אז:
+A1
+A2
+A3
+B1
+B2 
+B3
+B4 
+A4
+====
+react.fragment ( or <> </> but no key attribute)
+can group few element without add extra div
+במקום דיב במקרים מסוימים כמו טבלה שיש בתוכה עוד קומפוננט עם עמודות ואי אפשר שיהיה דיב ביניהם
+only 'key' attribute can be passed
+====
+pure componnent
+מןנע רירנדרים מיותרים אם אין שינוי בערכי המשתנים
+בודק אם ערך רגיל לא התשנה ואם  הרפרנס לאוביקט או מערך לא השתנה
+(לא בודק ערכים בפנים)
+לכן אם מוסיפים למערך אז צריך להחזיר מערך חדש כדי לרענן
+זה נועד לתת ביצועים יותר טובים
+אם האבא כזה אז גם הילדים אמורים להיות כאלה כי אחרת לא יהיו להם גם עדכונים
+
+====
+memo  component
+like pure copmonent but for function component. use:
+export default React.memo(MyComponent)
+
+====
+REF 
+יצירת סוג של מצביע עבטר פקד מסוים למשל כדי להתפקס עליו או כדי לקבל את הערך שלו וכו
+React.createRef();
+
+there is ' callback ref' - more older approach
+
+ניתן לעשות 'רף' גם עבור קומפוננט (רק קלאס
+ואז נגיד לגשת פונקציה של הילד
+
+===Forwarding Refs
+העברה של רף מהבן לאבא?
+לא הכי בשימוש
+https://reactjs.org/docs/forwarding-refs.html#gatsby-focus-wrapper
+====
+HOOKS 16.8^
+use react without class component
+===========
+state
+useState
+כל פעם שיש צורך לשנות תוכן על המסך משתמשים בסטייט: עדכון רשימה, תמונה, שגיאה
+מעקב אחרי שינוי של מידע מסוים?
+בדיקה של איזה מידע משתנה, מה הסוג, וערך התחלתי
+import {use state} from 'react
+const [counter, setCounter] = useState(0);
+and then wchnage the counter only through the setCounter function:
+רק ככה משנים את התוכן של המשתנה:
+setCounter(5);
+not counter=5 !
+אם זה מתבסס על הערך הקודם עדיף ככה:
+setCounter(x => x+1);
+SET OBJECT LIKE: obj(a,b,c)
+wantant to set only c so:
+setObj(...obj, c:'new value') - it copy all obj and then overwrite c
+on arrays:
+setArr([...arr, newValue])
+===
+useEffect
+נותן להרחיץ כל בכמה אאופציות:
+1. פעם ראשונה של טעינת העמוד. מעבירים מערך ריק
+2. כל טעינה
+3. פעם ראשונה+ כאשר ערכים מסוימים משתנים. מעבירים אותם המערך
+must be inside the function component
+ניתן להחזיר פונקציה שעושה קלינאפ 
+כמו לבטל רישום לאירועים או טיימר וכו
+
+לא לשכוח להשתמש באופציה 3 אם יש שינויים למשתנה מסוים
+אפילו אם טחחמר משנה אותו, לא מספיק להשתמש באופציה 1
+
+it can be more than 1 useEffect functions
+======
+====
+PORTALS
+כדי להוסיף אלמנטים מחוץ  לאלנמט הראשי:
+id="root" inside index.html
+add after it ^ new div id="portal-root"
+add function component:
+import react-dom pckg
+function...(jsx..., docoument. getElememtById('portal-root').
+(still add it also to app component)
+שימוש לפעמים בשביל פופ אפ שיהיה מחוץ למודל או קומפוננט שלא ייקח סטיילינג של האבא או הראשי
+https://reactjs.org/docs/portals.html#gatsby-focus-wrapper
+בשאר הדברים מתנהג כמו ילד רגיל
+====
+ERROR BOUNDARY
+מאפשר הצגה של קומפוננט ספיציפי כשיש שגיאה, עם פירוט שאפשר לכתוב
+הקומפוננט הזה צריך לממש אחת מהמתודות של הבאונדרי
+אחר כך עוטפים את שאר הקומפוננטים עם הקומפוננט הזה
+עדיף לעטוף כל אחד בנפרד כדי שאם יש רק באחד שגיאה אז לא כולם יוסתרו
+https://reactjs.org/docs/error-boundaries.html#gatsby-focus-wrapper
+בפיתוח ולא בפרודוקשן זה עדיין יציג את השגיאה המקורית בדפדפן אבל יש איקס בצד שיראה את הבאונדרי
+בתוך אירעים זה לא עובד ואז צריך try catch
+====
+Higher Order Components
+מונע שכפול קוד
+פונקציה לוקחת קומפוננט כארגומנט ומחזירה קומפוננט חדש
+// This function takes a component...
+function withSubscription(WrappedComponent, selectData) {
+  // ...and returns another component...
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.handleChange = this.handleChange.bind(this);
+      this.state = {
+        data: selectData(DataSource, props)
+      };
+    }
+	.....
+	render() {
+      // ... and renders the wrapped component with the fresh data!
+      // Notice that we pass through any additional props
+      return <WrappedComponent data={this.state.data} {...this.props} />;
+    }
+
+בקומפונטים המעודכנים לעשות אקספורט.:
+withSubscription(WrappedComponent)
+https://reactjs.org/docs/higher-order-components.html#gatsby-focus-wrapper
+
+notice: tje props from App go to the hoc component but not to wrap component
+it can be pass with: {...this.props}
+ניתן להעביר פרמטרים נוספים עבור כל קומפוננט שנעטף
+
+====
+RENDER PROPS
+נותן לשתף קוד על ידי העברה של פונקציה בתור פרופס
+https://reactjs.org/docs/render-props.html#gatsby-focus-wrapper
+===
+CONTEXT יש למטה דרך עדיפה עם הוקס
+https://reactjs.org/docs/context.html#reactcreatecontext
+יצירת קומפוננט שמשתף מידע מסוים עם כל המסכים. לדוג, מערך אובייקטים
+בלי להעביר את המידע בכל העץ של הקומפוננטים עד למטה
+levels:
+1.create context (new file) - createContext, provider, consumer
+2.provide context value
+3. get the value in another component
+
+לעטוף את הקומפוננט שצריך את המיידע - עם הפרויביידר
+
+בתוך הקומפוננט שצריך את המידע- להציג את הקונזיומר
+<MyContext.Consumer>
+  {value => /* render something based on the context value */}
+</MyContext.Consumer>
+
+ניתן להגדיר ערך ברירת מחדל
+
+
+עוד דרך: לעשות אקספורט לקונטקסט ואז בקומפוננט:
+component.contextType = myContext
+ואז להשתמש:
+this.context
+
+only class component. only one context
+====use context
+דרך יותר פשוטה לקבל את הערך
+const x = useCntext(myContext)
+{x}
+=======
+USE REDUCER
+Alternative to state
+usereducer is a hook use for state management in react
+הרעיון:
+newState = reducer(currentState, action)
+
+useReducer return 2 values: [newState,dispatch]
+הסבר פשוט:
+https://www.youtube.com/watch?v=IHJ-TO_1nME&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=62
+ניתן להגדיר מצב התחלתי וגם פעולה על ידי אובייקטים
+ואז ניתן ללעקוב אחרי כמה מצבים וגם לעשות כמה סוגי פעולות:
+https://www.youtube.com/watch?v=uX7lxFrWUbA&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=63
+
+ניהול כמה מצבים דומים שקשורים אחד לשני
+פונקציה שמנהלת שינוייןם עבור אובייקט
+====
+USE REDUCER + USE CONTEXT
+לפעמים רוצים להשתמש ברדוסר לכמה קומפוננטים
+אז מגדירים את כל הרדיוסר באבא ואז שולחים לקונטקסט רק את 2 הערכים:
+[dispatch, State]
+===
+ Fetching data with useReducer 
+ https://www.youtube.com/watch?v=imjfiXxvMD8&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=67
+ אין פה משהו חדש אבל דרך נוחה וברורה
+===
+useState vs useReducer
+
+useState:
+מספר, מחרוזת או בולאן
+1-2 משתנים
+לא קשורים אחד לשני
+אין חיושב מסובך
+משתנה מקומי שלא צריך שינוי במורד עץ הקומפוננטים
+
+useReducer
+אובייקט
+הרבה משתנים
+קשורים
+כןלל חישובים
+משתנה גלובאלי
+
+
+
+====
+HTTP REQUESTS WITH AXIOS LIBRARY
+npm install axios
+
+axios.get('link url...').then(...).catch(...);
+
+(there is redux axios middleware)
+====
+
+
+====
+FLEX-BOX
+(on parent)
+alignItems 
+center, strach, flex-start, flex-end
+
+ יישור פריטים בשורה לרוחב או עמודה
+flexDirection: row/ column
+
+justifyContent: פריסה של האלמנטים לאורך
+או לרוחב אם 
+alignItems= row/
+space-between, space-around.. and more
+
+(on child:)
+flex:'1' תופס את רוב המקום
+אם נותנים לכל ילד ערך אחר, הוא תופס מקום לפי אחוזים
+וגם במקרה שהתוכן נחתך כי אין מקום במסך, זב יכול לפתור את הבעיה
+עוד דרך: במקום 
+view
+לפתוח ולסגוא עם זוג<>  empty element
+
+
+alignself
+דורס את הערך של ההורה
+==
+position
+realarive - default
+absolute מתעלם מהאחים
+==
+top bottom left right
+אחרי שכל ההגדרות הקודמות מוחלות, יהיו תזוזות בהתאם בלי להשפיע על האחים
+==
+כדי שאחד מהבנים של ההורה ימלא את כל החלל בלי להתחשב באחים:
+position: absolute
+top, left, right, bottom: 0
+זה אומר שאין רווח מהצדדים שלו
+יש קיצור:
+...StyleSheet.absoluteFillObject
+===
+==
+vector-icon הצגת אייקונים
+https://icons.expo.fyi/
+
+====
+שליחת בקשות
+fetch ללא ספריה אבל לכתוב קצת קוד. ודרך מוזרה לטיפול בשגיאות build in
+axios  שימוש בספריה נוספת אבל יותר קל
+npm i -s axios
+
+============
+npx expo-cli init blog --npm
+
+===
+json-server
+תקיה חדשה
+npm init 
+npm install json-server ngrok
+צריך להריץ:
+npm start בפרויקט הרגיל של ריקאט
+ואז 
+npm run db
+npm eun tunnel (every 8 hours)
+===
+react-native-elements ספריה של אלמנטים מעוצבים
+
+=============track
+track server:
+nodemon index.js
+ngrok http 3000
+ זה נותן כתובת דומה לזאת. משתנה כל שעתיים:
+ http://d586b18c9b40.ngrok.io 
+ מעתיקים אותה לתוך הפרויקט של הקליינט
+ tracks:
+ npm start

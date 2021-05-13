@@ -1,0 +1,45 @@
+--save חשוב לעשות לכל התקנת חבילה
+
+בסוף הקובץ הראשי:
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
+
+
+npm init
+npm install express ejs --save
+
+התקנה
+https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true
+
+heroku login
+...
+git init
+
+git add לעשות
+לכל הקבצים הנדרשים (ללא תיקיית נוד מודולז),
+
+heroku create
+
+package.json להוסיף ב
+את פקודת ההרצה
+בסוף האובייקט הראשון אחרי
+test echo... 
+להוסיף
+,"start": "node index.js"
+(or app.js)
+
+git push heroku master
+=====
+אחרי עיכון שינויים
+add changedFils.js
+git commit -m "bla bla"
+git push heroku master
+
+
+בדיקת שגיאות
+heroku logs
+=============
+הרצת פקודות על התקיה שנמצאת בשרת של הירוקו
+heroko run ls
+וכו

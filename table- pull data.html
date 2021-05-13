@@ -1,0 +1,101 @@
+<html>
+
+<script>
+
+    function getPosts() {
+        //alert('hi');
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //document.getElementById("demo").innerHTML = this.responseText;
+                const data = JSON.parse(this.response);
+                var table = document.getElementById("table");
+
+                var header = document.createElement("tr");//get all titles of the columns
+                for (x in data[0]) {
+                    var detail = document.createElement("th");
+                    detail.innerText = x;
+                    header.appendChild(detail);
+                }
+                table.appendChild(header)
+
+                data.forEach(post => {//fill table
+                    var row1 = document.createElement("tr");
+                    for (x in post) {
+                        var detail = document.createElement("td");
+                        detail.innerText += (post[x] + ' ');
+                        row1.appendChild(detail);
+                    }
+                    table.appendChild(row1)
+                });
+
+                //}
+                //alert("hh");
+                // Object.keys(data).map(post => {
+                //     var row = document.createElement("tr");
+                //     post.map(property => {
+                //         var detail = document.createElement("td");
+                //         detail.innerText = property;
+                //         console.log(property);
+                //         //row.appendChild(detail)
+                //     });
+                //     // table.appendChild(row)
+                // });
+            }
+            else {
+                xhttp.abort();
+                document.getElementById("root").appendChild(document.createElement("h3").innerText("error"))
+            }
+        };
+        xhttp.open("GET", 'https://jsonplaceholder.typicode.com/posts/33333', true);
+        xhttp.send().catch(e){console.log('erre')};
+    }
+        
+    };
+
+</script>
+
+<body onload="getPosts()">
+    <div id="root" class="flex-container">
+        <h1>posts</h1>
+    </div>
+    <table id="table"></table>
+</body>
+
+<style>
+    table {
+        /* border-collapse: collapse; */
+        margin: 15px;
+        border-radius: 10px;
+    }
+
+    td,
+    th {
+        border: 1px solid black;
+        border-radius: 10px;
+
+    }
+
+    #root {
+        display: flex;
+        justify-content: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th {
+        background-color: gray !important;
+    }
+
+    tr :nth-child(odd) {
+        background-color: burlywood;
+    }
+
+    tr :nth-child(even) {
+        background-color: aqua;
+    }
+</style>
+
+</html>
